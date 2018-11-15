@@ -1,12 +1,3 @@
 <template>
-    <span>ALL({{ this.isRendered }})</span>
+    <span>ALL</span>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      isRendered: false
-    };
-  }
-};
-</script>

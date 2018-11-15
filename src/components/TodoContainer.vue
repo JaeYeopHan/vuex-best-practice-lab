@@ -16,58 +16,77 @@
 <script>
 import TodoItem from "./TodoItem.vue";
 import TodoInput from "./TodoInput.vue";
-// import { TO_DONE } from "../store/modules/todos";
+import { mapActions, mapState, mapGetters } from "@/store/modules/todos";
+import { todosMappedGetters } from "@/store/modules/todos/getters";
+import { ADD_ITEM, TO_DONE } from "@/store/modules/todos/types";
+import { filterType } from "@/constant";
 
 export default {
-  name: "todo-list",
   components: {
     TodoInput,
     TodoItem
   },
   computed: {
-    currentFilterView() {
-      return this.$store.state.todos.views.currentFilter;
-    },
-    allItems() {
-      return this.$store.state.todos.items;
-    },
-    doneItems() {
-      return this.$store.getters["todos/doneItems"];
-    },
-    activeItems() {
-      return this.$store.getters["todos/activeItems"];
-    },
+    ...mapState({
+      currentFilterView: ({ views }) => views.currentFilter,
+      allItems: ({ items }) => items
+    }),
+    ...mapGetters({ ...todosMappedGetters }),
+    // ...mapGetters({
+    //   doneItems: "doneItems",
+    //   activeItems: "activeItems"
+    // }),
+    // currentFilterView() {
+    //   return this.$store.state.todos.views.currentFilter;
+    //   return this.$store.state["todos/views/currentFilter"]; (x)
+    // },
+    // allItems() {
+    //   return this.$store.state.todos.items;
+    // },
+    // doneItems() {
+    //   return this.$store.getters["todos/doneItems"];
+    //   // return this.$store.getters.todos.doneItems; (x)
+    // },
+    // activeItems() {
+    //   return this.$store.getters["todos/activeItems"];
+    // },
     todos() {
-      if (this.currentFilterView === "All") {
+      if (this.currentFilterView === filterType.ALL) {
         return this.allItems;
       }
-      if (this.currentFilterView === "Done") {
+      if (this.currentFilterView === filterType.DONE) {
         return this.doneItems;
       }
-      if (this.currentFilterView === "Active") {
+      if (this.currentFilterView === filterType.ACTIVE) {
         return this.activeItems;
       }
     }
   },
 
   methods: {
+    ...mapActions([ADD_ITEM, TO_DONE]),
     toCompleteItem(event, todo) {
-      this.$store.dispatch("todos/toDone", {
+      this[TO_DONE]({
         index: this.todos.indexOf(todo)
       });
     },
 
-    addItem: function(event) {
+    addItem(event) {
       if (event.target.value.trim() === "") {
         event.target.value = "";
         return;
       }
-      this.$store.dispatch("todos/addItem", {
-        newItem: {
-          content: event.target.value,
-          isDone: false
-        }
-      });
+      const newItem = {
+        content: event.target.value,
+        isDone: false
+      };
+      this[ADD_ITEM]({ newItem });
+      // this.$store.dispatch("todos/addItem", {
+      //   newItem: {
+      //     content: event.target.value,
+      //     isDone: false
+      //   }
+      // });
       event.target.value = "";
     }
   }
