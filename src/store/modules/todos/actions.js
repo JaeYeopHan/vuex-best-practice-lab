@@ -1,33 +1,27 @@
-import {
-  ADD_ITEM,
-  TO_DONE,
-  CHANGE_CURRENT_FILTER_TO_ALL,
-  CHANGE_CURRENT_FILTER_TO_DONE,
-  CHANGE_CURRENT_FILTER_TO_ACTIVE
-} from "./types";
+import * as todos from "./types";
 
 // context === {dispatch: ƒ, commit: ƒ, getters: {…}, state: {…}, rootGetters: {…},…}
 export default {
-  [ADD_ITEM]({ commit }, payload) {
-    commit(ADD_ITEM, payload.newItem);
+  [todos.ADD_ITEM]({ commit }, payload) {
+    commit(todos.ADD_ITEM, payload.newItem);
   },
   // addItem(context, payload) {
   //   context.commit("addItem", payload.newItem);
   // },
 
-  [TO_DONE]({ commit }, payload) {
-    commit(TO_DONE, payload.index);
+  [todos.TO_DONE]({ commit }, payload) {
+    commit(todos.TO_DONE, payload.index);
   },
 
-  [CHANGE_CURRENT_FILTER_TO_ALL]({ commit }) {
-    commit(CHANGE_CURRENT_FILTER_TO_ALL);
+  [todos.CHANGE_CURRENT_FILTER_TO_ALL]({ commit }) {
+    commit(todos.CHANGE_CURRENT_FILTER_TO_ALL);
   },
 
-  [CHANGE_CURRENT_FILTER_TO_DONE]({ commit }) {
-    commit(CHANGE_CURRENT_FILTER_TO_DONE);
+  [todos.CHANGE_CURRENT_FILTER_TO_DONE]({ commit }) {
+    commit(todos.CHANGE_CURRENT_FILTER_TO_DONE);
   },
 
-  [CHANGE_CURRENT_FILTER_TO_ACTIVE]({ commit }) {
-    commit(CHANGE_CURRENT_FILTER_TO_ACTIVE);
+  [todos.CHANGE_CURRENT_FILTER_TO_ACTIVE]({ commit }) {
+    commit(todos.CHANGE_CURRENT_FILTER_TO_ACTIVE);
   }
 };

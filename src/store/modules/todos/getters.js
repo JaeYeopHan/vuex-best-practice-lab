@@ -1,11 +1,7 @@
-import { convertToMapGettersTarget } from "../../utils";
+export const DONE_ITEMS = "DONE_ITEMS";
+export const ACTIVE_ITEMS = "ACTIVE_ITEMS";
 
-const getters = {
-  doneItems: state => state.items.filter(todo => todo.isDone),
-  activeItems: state => state.items.filter(todo => !todo.isDone)
+export default {
+  [DONE_ITEMS]: state => state.items.filter(todo => todo.isDone),
+  [ACTIVE_ITEMS]: state => state.items.filter(todo => !todo.isDone)
 };
-
-const todosMappedGetters = convertToMapGettersTarget(getters);
-
-export { todosMappedGetters };
-export default getters;
