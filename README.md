@@ -1,26 +1,3 @@
-# vue-app
+# Vuex best practice
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
+[Vuex best practice로 가는 여정 포스팅](https://jaeyeophan.github.io/2018/11/17/Vuetorials-7-Vuex-Best-Practice/)

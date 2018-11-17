@@ -1,0 +1,11 @@
+// namespace
+export const NAMESPACE = "todos";
+
+// actions
+export const ADD_ITEM = "ADD_ITEM";
+export const TO_DONE = "TO_DONE";
+
+export const CHANGE_CURRENT_FILTER_TO_ALL = "CHANGE_CURRENT_FILTER_TO_ALL";
+export const CHANGE_CURRENT_FILTER_TO_DONE = "CHANGE_CURRENT_FILTER_TO_DONE";
+export const CHANGE_CURRENT_FILTER_TO_ACTIVE =
+  "CHANGE_CURRENT_FILTER_TO_ACTIVE";
