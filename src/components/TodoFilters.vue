@@ -1,38 +1,35 @@
 <template>
-    <div>
-        <button
-          class="filter-button"
-          :class="[currentFilter === filterType.ALL ? 'active' : '' ]"
-          @click="onClickFilterButtonAll">
-            {{filterType.ALL}}
-        </button>
-        <button
-            class="filter-button"
-            :class="[currentFilter === filterType.DONE ? 'active' : '' ]"
-            @click="onClickFilterButtonDone">
-            {{filterType.DONE}}
-        </button>
-        <button
-            class="filter-button"
-            :class="[currentFilter === filterType.ACTIVE ? 'active' : '' ]"
-            @click="onClickFilterButtonActive">
-            {{filterType.ACTIVE}}
-        </button>
+  <div>
+    <button
+      class="filter-button"
+      :class="[currentFilter === filterType.ALL ? 'active' : '' ]"
+      @click="onClickFilterButtonAll"
+    >{{filterType.ALL}}</button>
+    <button
+      class="filter-button"
+      :class="[currentFilter === filterType.DONE ? 'active' : '' ]"
+      @click="onClickFilterButtonDone"
+    >{{filterType.DONE}}</button>
+    <button
+      class="filter-button"
+      :class="[currentFilter === filterType.ACTIVE ? 'active' : '' ]"
+      @click="onClickFilterButtonActive"
+    >{{filterType.ACTIVE}}</button>
 
-        <div>
-            <span>currentFilter:</span>
-            <keep-alive>
-                <component :is="currentFilter"></component>
-            </keep-alive>
-        </div>
+    <div>
+      <span>currentFilter:</span>
+      <keep-alive>
+        <component :is="currentFilter"></component>
+      </keep-alive>
     </div>
+  </div>
 </template>
 
 <script>
 import All from "./filters/TodoFiltersAll.vue";
 import Done from "./filters/TodoFiltersDone.vue";
 import Active from "./filters/TodoFiltersActive.vue";
-import { mapActions, mapState } from "@/store/modules/todos";
+import * as todos from "@/store/modules/todos";
 import * as actions from "@/store/modules/todos/types";
 import { filterType } from "@/constant";
 
@@ -46,7 +43,7 @@ export default {
     Active
   },
   computed: {
-    ...mapState({
+    ...todos.mapState({
       currentFilter: ({ views }) => views.currentFilter
     })
     // currentFilter() {
@@ -54,7 +51,7 @@ export default {
     // }
   },
   methods: {
-    ...mapActions([
+    ...todos.mapActions([
       actions.CHANGE_CURRENT_FILTER_TO_ALL,
       actions.CHANGE_CURRENT_FILTER_TO_DONE,
       actions.CHANGE_CURRENT_FILTER_TO_ACTIVE

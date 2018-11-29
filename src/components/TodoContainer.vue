@@ -1,20 +1,19 @@
 <template>
   <div>
-    <todo-input
-      :addItem="addItem"
-    />
+    <todo-input :addItem="addItem"/>
     <ul class="todo-list">
       <todo-item
-        v-for="(todo, index) in todos" :key="index"
-        :todo='todo'
-        :toCompleteItem='toCompleteItem'
+        v-for="(todo, index) in todos"
+        :key="index"
+        :todo="todo"
+        :toCompleteItem="toCompleteItem"
       />
     </ul>
   </div>
 </template>
 
 <script>
-import { mapActions, mapState, mapGetters } from "@/store/modules/todos";
+import todos from "@/store/modules/todos";
 import * as actions from "@/store/modules/todos/types";
 import * as getters from "@/store/modules/todos/getters";
 import TodoItem from "./TodoItem.vue";
@@ -27,11 +26,11 @@ export default {
     TodoItem
   },
   computed: {
-    ...mapState({
+    ...todos.mapState({
       currentFilter: ({ views }) => views.currentFilter,
       allItems: ({ items }) => items
     }),
-    ...mapGetters({
+    ...todos.mapGetters({
       doneItems: getters.DONE_ITEMS,
       activeItems: getters.ACTIVE_ITEMS
     }),
@@ -71,11 +70,11 @@ export default {
   },
 
   methods: {
-    ...mapActions([actions.ADD_ITEM, actions.TO_DONE]),
-    // ...mapActions({
-    //   addItem: actions.ADD_ITEM,
-    //   toDone: actions.TO_DONE
-    // }),
+    // ...mapActions([actions.ADD_ITEM, actions.TO_DONE]),
+    ...todos.mapActions({
+      addNewItem: actions.ADD_ITEM,
+      toDone: actions.TO_DONE
+    }),
 
     toCompleteItem(event, todo) {
       this.toDone({
@@ -92,8 +91,8 @@ export default {
         content: event.target.value,
         isDone: false
       };
-      this[actions.ADD_ITEM]({ newItem });
-      // this.addItem({ newItem });
+      // this[actions.ADD_ITEM]({ newItem });
+      this.addNewItem({ newItem });
       // this.$store.dispatch("todos/addItem", {
       //   newItem: {
       //     content: event.target.value,
